@@ -8,7 +8,7 @@
 		//if there is no id in the url, redirect to home
 		if(!$stateParams.id) $state.go('Home');
 		
-		HomeFactory.getCat().then(function(res) {
+		HomeFactory.getCat($stateParams.id).then(function(res) {
 			//q.resolve()
 			vm.cat = res;
 			vm.catCopy = angular.copy(res); //creates a copy of the cat so we can edit vm.cat and not change this "original" cat
@@ -18,7 +18,10 @@
 		});
 		
 		vm.submitCat = function() {
-			
+			//editCat(new cat, old cat);
+			HomeFactory.editCat(vm.cat, vm.catCopy).then(function(res) {
+				$state.go('Home');
+			});
 		}
 	}
 })();

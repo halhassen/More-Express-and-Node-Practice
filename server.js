@@ -47,6 +47,16 @@ app.post('/cats', function(req, res) {
 	res.send({ name : newCat._id });
 });
 
+app.put('/cats/:id', function(req, res) {
+	findCat(req.params.id, function(err, cat) {
+		if(err) return res.status(400).send({message: err});
+		cat.name = req.body.name;
+		cat.image = req.body.image;
+		cat.color = req.body.color;
+		res.send();
+	})
+});
+
 app.delete('/cats/:id', function(req, res) {
 	findCat(req.params.id, function(err, result) {
 		if(err) return res.status(400).send({message:err});

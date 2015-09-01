@@ -37,6 +37,15 @@
       return q.promise;
 		}
     
+    o.editCat = function(newCat, oldCat) {
+      var q = $q.defer();
+      $http.put('/cats/'+ oldCat._id, newCat).success(function(res) {
+        o.cats.splice(o.cats.indexOf(oldCat) - 1, 1, newCat);
+        q.resolve();
+      });
+      return q.promise;
+    };
+    
     o.deleteCat = function(cat) {
       $http.delete('/cats/' + cat._id).success(function(res) {
         o.cats.splice(o.cats.indexOf(cat), 1);

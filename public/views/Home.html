@@ -5,6 +5,7 @@
 			<div>
 				<i>{{c.name}}</i> <br>
 				<i>color: {{c.color}}</i>
+				<a style="float: right; color: red;" ui-sref="EditCat({id: c._id})">Edit</a>
 				<a ng-click="vm.deleteCat(c)" style="float: right; color: red;">Delete</a>
 			</div>
 		</div>
