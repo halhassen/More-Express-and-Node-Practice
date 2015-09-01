@@ -9,5 +9,9 @@
 		var vm = this;
 		vm.title = 'Welcome to our App!';
 		vm.cats = HomeFactory.cats;
+		
+		vm.deleteCat = function(cat) {
+			HomeFactory.deleteCat(cat);
+		}
 	}
 })();

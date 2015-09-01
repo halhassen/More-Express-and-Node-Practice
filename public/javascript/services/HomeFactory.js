@@ -19,11 +19,19 @@
 		o.createCat = function(cat) {
       var q = $q.defer();
 			$http.post('/cats', cat).success(function(res) {
+        cat._id = res.name;
         o.cats.push(cat);
         q.resolve();
 			});
       return q.promise;
 		}
+    
+    o.deleteCat = function(cat) {
+      $http.delete('/cats/' + cat._id).success(function(res) {
+        o.cats.splice(o.cats.indexOf(cat), 1);
+      });
+    }
+    
 		o.getCats();
     return o;
   }

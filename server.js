@@ -36,7 +36,17 @@ app.get('/cats', function(req, res) {
 app.post('/cats', function(req, res) {
 	var newCat = new Cat(req.body.name, req.body.image, req.body.color);
 	cats.push(newCat);
-	res.send(cats);
+	res.send({ name : newCat._id });
+});
+
+app.delete('/cats/:id', function(req, res) {
+	for(var i = 0; i < cats.length; i++) {
+		if(cats[i]._id.equals(req.params.id)) {
+			cats.splice(i, 1);
+			return res.send();
+		}
+	}
+	res.status(400).send("You done messed up.");
 });
 
 var server = app.listen(port, function() {

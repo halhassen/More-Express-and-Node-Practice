@@ -1,11 +1,11 @@
 <div ng-controller="HomeController as vm">
 	<div ng-repeat="c in vm.cats" class="col-sm-3 cat-holder">
 		<div class="well">
-			<img ng-src="{{c.image}}" class="cat-picture"/>
-			<br>
+				<img ng-src="{{c.image}}" class="cat-picture"/>
 			<div>
 				<i>{{c.name}}</i> <br>
 				<i>color: {{c.color}}</i>
+				<a ng-click="vm.deleteCat(c)" style="float: right; color: red;">Delete</a>
 			</div>
 		</div>
 	</div>	
