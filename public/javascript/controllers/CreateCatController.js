@@ -6,7 +6,7 @@
 	function CreateCatController($state, HomeFactory) {
 		var vm = this;
 		vm.cat = {};
-		vm.createCat = function() {
+		vm.submitCat = function() {
 			HomeFactory.createCat(vm.cat).then(function() {
 				$state.go('Home');
 			});

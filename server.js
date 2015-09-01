@@ -28,9 +28,17 @@ app.get('/', function(req, res) {
 //Cat will refer to our object constructor
 var Cat = require('./models/Cat');
 var cats = require('./models/DB');
+var findCat = require('./my_modules/findCat');
 
 app.get('/cats', function(req, res) {
 	res.send(cats);
+});
+
+app.get('/cats/:id', function(req, res) {
+	findCat(req.params.id, function(err, cat) {
+		if(err) return res.status(400).send({message:err});
+		res.send(cat);
+	});
 });
 
 app.post('/cats', function(req, res) {
@@ -40,13 +48,11 @@ app.post('/cats', function(req, res) {
 });
 
 app.delete('/cats/:id', function(req, res) {
-	for(var i = 0; i < cats.length; i++) {
-		if(cats[i]._id.equals(req.params.id)) {
-			cats.splice(i, 1);
-			return res.send();
-		}
-	}
-	res.status(400).send("You done messed up.");
+	findCat(req.params.id, function(err, result) {
+		if(err) return res.status(400).send({message:err});
+		cats.splice(cats.indexOf(result), 1);
+		res.send();
+	});
 });
 
 var server = app.listen(port, function() {

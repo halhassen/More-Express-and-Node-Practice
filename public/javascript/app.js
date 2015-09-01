@@ -12,6 +12,11 @@
 			templateUrl: 'views/create_cat.html',
 			controller: 'CreateCatController',
 			controllerAs: 'vm'
+		}).state('EditCat', {
+			url: '/Cat/Edit/:id',
+			templateUrl: 'views/create_cat.html',
+			controller: 'EditCatController',
+			controllerAs: 'vm'
 		});
 		$urlRouterProvider.otherwise('/');
 	}

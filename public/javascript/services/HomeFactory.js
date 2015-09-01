@@ -8,7 +8,18 @@
   function HomeFactory($http, $q) {
     var o = {};
     o.cats = [];
-
+    
+    //get an individual cat
+    o.getCat = function(id) {
+      var q = $q.defer();
+      $http.get('/cats/' + id).success(function(res) {
+        q.resolve(res);
+      }).error(function() {
+        q.reject();
+      });
+      return q.promise;
+    }
+    
     o.getCats = function() {
       $http.get('/cats').success(function(res) {
         //pushes res array into cat array
