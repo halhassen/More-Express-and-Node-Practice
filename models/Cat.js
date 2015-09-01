@@ -1,6 +1,6 @@
-var CatConstructor = function(name, age, color) {
+var CatConstructor = function(name, image, color) {
   this.name = name;
-  this.age = age;
+  this.image = image;
   this.color = color;
 }
 

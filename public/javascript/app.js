@@ -7,6 +7,11 @@
 		$stateProvider.state('Home',{
 			url: '/',
 			templateUrl: 'views/home.html'
+		}).state('CreateCat', {
+			url: '/Cat',
+			templateUrl: 'views/create_cat.html',
+			controller: 'CreateCatController',
+			controllerAs: 'vm'
 		});
 		$urlRouterProvider.otherwise('/');
 	}

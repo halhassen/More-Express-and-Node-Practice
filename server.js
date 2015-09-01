@@ -30,16 +30,11 @@ var Cat = require('./models/Cat');
 var cats = require('./models/DB');
 
 app.get('/cats', function(req, res) {
-	var myCat = new Cat('Mittens', 'Cornish Rex', 'Orange?')
 	res.send(cats);
 });
 
-app.get('/dogs', function(req, res) {
-	res.send({name: 'Rex', breed:'Malamute', size:'way too big'});
-});
-
 app.post('/cats', function(req, res) {
-	var newCat = new Cat(req.body.name, req.body.breed, req.body.color);
+	var newCat = new Cat(req.body.name, req.body.image, req.body.color);
 	cats.push(newCat);
 	res.send(cats);
 });

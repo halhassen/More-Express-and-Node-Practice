@@ -1,4 +1,12 @@
 <div ng-controller="HomeController as vm">
-	<h1>{{vm.title}}</h1>
-	<button type="button" class="btn btn-lg btn-info" ng-click="vm.createCat();">Create!</button>
+	<div ng-repeat="c in vm.cats" class="col-sm-3 cat-holder">
+		<div class="well">
+			<img ng-src="{{c.image}}" class="cat-picture"/>
+			<br>
+			<div>
+				<i>{{c.name}}</i> <br>
+				<i>color: {{c.color}}</i>
+			</div>
+		</div>
+	</div>	
 </div>

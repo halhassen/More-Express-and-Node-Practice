@@ -8,8 +8,6 @@
 	function HomeController(HomeFactory) {
 		var vm = this;
 		vm.title = 'Welcome to our App!';
-		vm.createCat = function() {
-			HomeFactory.createCat();
-		}
+		vm.cats = HomeFactory.cats;
 	}
 })();
