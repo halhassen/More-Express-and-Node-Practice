@@ -1,58 +1,54 @@
 (function() {
   'use strict';
-  angular.module('app')
-    .factory('HomeFactory', HomeFactory);
-
+  angular.module('app').factory('HomeFactory', HomeFactory);
   HomeFactory.$inject = ['$http', '$q'];
 
   function HomeFactory($http, $q) {
     var o = {};
-    o.cats = [];
-    
-    //get an individual cat
-    o.getCat = function(id) {
+    o.songs = [];
+
+    o.getSong = function(id) {
       var q = $q.defer();
-      $http.get('/cats/' + id).success(function(res) {
+      $http.get('/songs/' + id).success(function(res) {
         q.resolve(res);
       }).error(function() {
-        q.reject();
-      });
-      return q.promise;
-    }
-    
-    o.getCats = function() {
-      $http.get('/cats').success(function(res) {
-        //pushes res array into cat array
-				o.cats.push.apply(o.cats, res);        
-      });
-    };
-		
-		o.createCat = function(cat) {
-      var q = $q.defer();
-			$http.post('/cats', cat).success(function(res) {
-        cat._id = res.name;
-        o.cats.push(cat);
-        q.resolve();
-			});
-      return q.promise;
-		}
-    
-    o.editCat = function(newCat, oldCat) {
-      var q = $q.defer();
-      $http.put('/cats/'+ oldCat._id, newCat).success(function(res) {
-        o.cats.splice(o.cats.indexOf(oldCat) - 1, 1, newCat);
-        q.resolve();
+        q.reject()
       });
       return q.promise;
     };
-    
-    o.deleteCat = function(cat) {
-      $http.delete('/cats/' + cat._id).success(function(res) {
-        o.cats.splice(o.cats.indexOf(cat), 1);
+
+    o.getSongs = function() {
+      $http.get('/songs').success(function(res) {
+        o.songs.push.apply(o.songs, res)
       });
-    }
-    
-		o.getCats();
+    };
+
+    o.createSong = function(song) {
+      var q = $q.defer();
+      $http.post('/songs', song).success(function(res) {
+        song._id = res.name;
+        o.songs.push(song);
+        q.resolve;
+      })
+      return q.promise;
+    };
+
+    o.editSong = function(newSong, oldSong) {
+      var q = $q.defer();
+      $http.put('/songs/' + oldSong._id, newSong).success(function(res) {
+        o.songs.splice(o.songs.indexOf(oldSong) - 2, 1, newSong);
+        q.resolve();
+      });
+      return q.promise;
+    };
+
+    o.deleteSong = function(song) {
+      $http.delete('/songs/' + song._id).success(function(res) {
+        o.songs.splice(o.songs.indexOf(song), 1);
+      });
+    };
+
+    o.getSongs();
     return o;
-  }
+  };
 })();

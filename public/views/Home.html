@@ -1,12 +1,12 @@
 <div ng-controller="HomeController as vm">
-	<div ng-repeat="c in vm.cats" class="col-sm-3 cat-holder">
+	<div ng-repeat="s in vm.songs" class="col-sm-3 song-holder">
 		<div class="well">
-				<img ng-src="{{c.image}}" class="cat-picture"/>
+			<img ng-src="{{s.albumCover}}" class="song-picture"/>
 			<div>
-				<i>{{c.name}}</i> <br>
-				<i>color: {{c.color}}</i>
-				<a style="float: right; color: red;" ui-sref="EditCat({id: c._id})">Edit</a>
-				<a ng-click="vm.deleteCat(c)" style="float: right; color: red;">Delete</a>
+				<h4>{{s.track}}</h4>	
+				<i>{{s.artist}} - {{s.album}}</i>
+				<a style="float: right; color: red;" ui-sref="EditSong({id: s._id})">Edit </a>
+				<a ng-click="vm.deleteSong(s)" style="float: right; color: red;">Delete </a>
 			</div>
 		</div>
 	</div>	

@@ -4,18 +4,18 @@
 	.config(Config);
 	Config.$inject = ['$stateProvider', '$urlRouterProvider'];
 	function Config($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('Home',{
+		$stateProvider.state('Home', {
 			url: '/',
 			templateUrl: 'views/home.html'
-		}).state('CreateCat', {
-			url: '/Cat',
-			templateUrl: 'views/create_cat.html',
-			controller: 'CreateCatController',
+		}).state('CreateSong', {
+			url: '/Song',
+			templateUrl: 'views/create_song.html',
+			controller: 'CreateSongController',
 			controllerAs: 'vm'
-		}).state('EditCat', {
-			url: '/Cat/Edit/:id',
-			templateUrl: 'views/create_cat.html',
-			controller: 'EditCatController',
+		}).state('EditSong', {
+			url: '/Song/Edit/:id',
+			templateUrl: 'views/create_song.html',
+			controller: 'EditSongController',
 			controllerAs: 'vm'
 		});
 		$urlRouterProvider.otherwise('/');

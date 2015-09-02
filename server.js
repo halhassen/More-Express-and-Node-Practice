@@ -25,42 +25,43 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
-//Cat will refer to our object constructor
-var Cat = require('./models/Cat');
-var cats = require('./models/DB');
-var findCat = require('./my_modules/findCat');
+//Song will refer to our object constructor
+var Song = require('./models/Song');
+var songs = require('./models/DB');
+var findSong = require('./my_modules/findSong');
 
-app.get('/cats', function(req, res) {
-	res.send(cats);
+app.get('/songs', function(req, res) {
+	res.send(songs);
 });
 
-app.get('/cats/:id', function(req, res) {
-	findCat(req.params.id, function(err, cat) {
-		if(err) return res.status(400).send({message:err});
-		res.send(cat);
+app.get('/songs/:id', function(req, res) {
+	findSong(req.params.id, function(err, song) {
+		if(err) return res.status(400).send({message: err});
+		res.send(song);
 	});
 });
 
-app.post('/cats', function(req, res) {
-	var newCat = new Cat(req.body.name, req.body.image, req.body.color);
-	cats.push(newCat);
-	res.send({ name : newCat._id });
+app.post('/songs', function(req, res) {
+	var newSong = new Song(req.body.title, req.body.artist, req.body.album, req.body.albumCover);
+	songs.push(newSong);
+	res.send({ name : newSong._id});
 });
 
-app.put('/cats/:id', function(req, res) {
-	findCat(req.params.id, function(err, cat) {
+app.put('/songs/:id', function(req, res) {
+	findSong(req.params.id, function(err, song) {
 		if(err) return res.status(400).send({message: err});
-		cat.name = req.body.name;
-		cat.image = req.body.image;
-		cat.color = req.body.color;
+		song.track = req.body.track;
+		song.artist = req.body.artist;
+		song.album = req.body.album;
+		song.albumCover = req.body.albumCover;
 		res.send();
 	})
-});
+})
 
-app.delete('/cats/:id', function(req, res) {
-	findCat(req.params.id, function(err, result) {
-		if(err) return res.status(400).send({message:err});
-		cats.splice(cats.indexOf(result), 1);
+app.delete('/songs/:id', function(req, res) {
+	findSong(req.params.id, function(err, result) {
+		if(err) return res.status(400).send({message: err});
+		songs.splice(songs.indexOf(result), 1);
 		res.send();
 	});
 });

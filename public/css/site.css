@@ -1,13 +1,13 @@
-.cat-holder {
-	height: 200px;
+.song-holder {
+	height: 300px;
 }
 
-.cat-holder div {
+.song-holder div {
 	width: 100%;
 	height: 100%;
 }
 
-.cat-picture {
+.song-picture {
 	width: 100%;
 	height: 80%;
 	margin: auto;

@@ -1,0 +1,23 @@
+<!--We are using this view for creating and editing a song-->
+<form class="well container" ng-submit="vm.submitSong()">
+	<div class="well">
+		<label>Title<span ng-if="vm.songCopy.track">: {{vm.songCopy.track}}</span></label>
+		<input class="form-control" ng-model="vm.song.track" placeholder="Track...">
+	</div>
+	<div class="well">
+		<label>Artist<span ng-if="vm.songCopy.artist">: {{vm.songCopy.artist}}</span></label>
+		<input class="form-control" ng-model="vm.song.artist" placeholder="Artist...">
+	</div>
+	<div class="well">
+		<label>Album<span ng-if="vm.songCopy.album">: {{vm.songCopy.album}}</span></label>
+		<input class="form-control" ng-model="vm.song.album" placeholder="Album...">
+	</div>
+	<div class="well">
+		<label>Album Cover<span ng-if="vm.songCopy.albumCover">: {{vm.songCopy.albumCover}}</span></label>
+		<input class="form-control" ng-model="vm.song.albumCover" placeholder="Album Cover...">
+	</div>
+	<div style="text-align: center">
+		<button type="submit" class="btn btn-lg btn-success">Submit</button>
+	</div>
+</form>
+<h3>Create and Edit Song</h3>
