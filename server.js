@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var app = express();
 var port = process.env.PORT || 3000;
 
+var animalRoutes = require('./routes/animalRoutes.js');
+var movieRoutes = require('./routes/movieRoutes.js');
+
 app.set('views', path.join(__dirname, 'views'));
 //set the view engine that will render HTML from the server to the client
 app.engine('.html', require('ejs').renderFile);
@@ -20,51 +23,37 @@ app.set('view options', {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+//abstracting an API route
+//when someone makes a request at that url, make a request at that module
+app.use("/v1/api/animals", animalRoutes);
+// console.log(animalRoutes.stack[3].route)
+app.use("/v1/api/movies", movieRoutes);
+
+var songRoutes = require('./routes/songRoutes');
+
 //on homepage load, render the index page
 app.get('/', function(req, res) {
+	console.log("Index loaded")
 	res.render('index');
 });
 
-//Song will refer to our object constructor
-var Song = require('./models/Song');
-var songs = require('./models/DB');
-var findSong = require('./my_modules/findSong');
 
-app.get('/songs', function(req, res) {
-	res.send(songs);
-});
+app.use('/', songRoutes);
 
-app.get('/songs/:id', function(req, res) {
-	findSong(req.params.id, function(err, song) {
-		if(err) return res.status(400).send({message: err});
-		res.send(song);
-	});
-});
-
-app.post('/songs', function(req, res) {
-	var newSong = new Song(req.body.title, req.body.artist, req.body.album, req.body.albumCover);
-	songs.push(newSong);
-	res.send({ name : newSong._id});
-});
-
-app.put('/songs/:id', function(req, res) {
-	findSong(req.params.id, function(err, song) {
-		if(err) return res.status(400).send({message: err});
-		song.track = req.body.track;
-		song.artist = req.body.artist;
-		song.album = req.body.album;
-		song.albumCover = req.body.albumCover;
-		res.send();
-	})
+app.use('/', function(req, res) {
+	res.status(404).render('404');
 })
 
-app.delete('/songs/:id', function(req, res) {
-	findSong(req.params.id, function(err, result) {
-		if(err) return res.status(400).send({message: err});
-		songs.splice(songs.indexOf(result), 1);
-		res.send();
-	});
-});
+app.use(function(err, req, res) {
+	if(err.type === 'client')
+		res.status(400).send(err);
+	else
+		res.status(500).send({err: "Sorry, there was a problem with the server."})
+})
+
+
+
+//The routes were added to songRoutes.js
 
 var server = app.listen(port, function() {
 	var host = server.address().address;
